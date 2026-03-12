@@ -8,7 +8,7 @@
 
 0. Using NVIDIA Air 2.0 (air-ngc.nvidia.com) create a new simulation from `topology.yaml` file from this repository,
    keeping ZTP **disabled**
-0. Keep OOB enabled and start simulation
+    - Keep OOB enabled and just start simulation
 0. After it's active, enable SSH in Services tab
     - Provided access info allows to SSH to the Hedgehog Fabric Control Node from which you can ssh to all switches and
       servers using their hostnames
