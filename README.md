@@ -44,6 +44,7 @@ cd nvidia-air-demo
 Relogin and run:
 
 ```bash
+cd nvidia-air-demo
 ./1_install_control.sh
 ./2_setup_servers.sh
 ```
