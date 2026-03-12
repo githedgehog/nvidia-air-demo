@@ -15,3 +15,7 @@ curl -fsSL https://i.hhdev.io/hhfab | USE_SUDO=false INSTALL_DIR=. VERSION=v0-ai
 
 cd result/control--control-1--install/
 sudo ./hhfab-recipe install -v
+
+echo "====================="
+echo "Installation complete"
+echo "====================="
