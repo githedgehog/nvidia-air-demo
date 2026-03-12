@@ -1,0 +1,159 @@
+apiVersion: fabricator.githedgehog.com/v1beta1
+kind: Fabricator
+metadata:
+  name: default
+  namespace: fab
+spec:
+  config:
+    control:
+      controlVIP: 192.168.200.1/32
+      defaultUser:
+        authorizedKeys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGpF2+9I1Nj4BcN7y6DjzTbq1VcUYIRGyfzId5ZoBEFj
+        password: $5$8nAYPGcl4l6G7Av1$Qi4/gnM0yPtGv9kjpMh78NuNSfQWy7vR1rulHpurL36
+      dummySubnet: 172.30.90.0/24
+      kubeClusterDNS: 172.29.0.10
+      kubeClusterSubnet: 172.28.0.0/16
+      kubeServiceSubnet: 172.29.0.0/16
+      managementSubnet: 192.168.200.0/24
+      managementSubnetAnyDevice: true
+      managementSubnetStatic:
+        0c:20:12:fe:01:00: 192.168.200.100
+        0c:20:12:fe:01:01: 192.168.200.101
+        0c:20:12:fe:01:02: 192.168.200.102
+        0c:20:12:fe:01:03: 192.168.200.103
+        0c:20:12:fe:01:04: 192.168.200.104
+        0c:20:12:fe:01:05: 192.168.200.105
+        0c:20:12:fe:01:06: 192.168.200.106
+        0c:20:12:fe:01:07: 192.168.200.107
+        0c:20:12:ff:00:00: 192.168.200.6
+        0c:20:12:ff:01:00: 192.168.200.7
+        0c:20:12:ff:02:00: 192.168.200.8
+        0c:20:12:ff:03:00: 192.168.200.9
+        0c:20:12:ff:04:00: 192.168.200.10
+        0c:20:12:ff:05:00: 192.168.200.11
+        0c:20:12:ff:06:00: 192.168.200.12
+        0c:20:12:ff:07:00: 192.168.200.13
+        0c:20:12:ff:08:00: 192.168.200.14
+        0c:20:12:ff:09:00: 192.168.200.15
+      ntpServers:
+      - time.cloudflare.com
+      - time1.google.com
+      - time2.google.com
+      - time3.google.com
+      - time4.google.com
+      observability:
+        kubeEvents: true
+        kubePodLogs: true
+    fabric:
+      baseVPCCommunity: "50000:0"
+      defaultAlloyConfig: {}
+      defaultSwitchUsers:
+        admin:
+          authorizedKeys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGpF2+9I1Nj4BcN7y6DjzTbq1VcUYIRGyfzId5ZoBEFj
+          password: $5$8nAYPGcl4l6G7Av1$Qi4/gnM0yPtGv9kjpMh78NuNSfQWy7vR1rulHpurL36
+          role: admin
+        op:
+          authorizedKeys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGpF2+9I1Nj4BcN7y6DjzTbq1VcUYIRGyfzId5ZoBEFj
+          password: $5$8nAYPGcl4l6G7Av1$Qi4/gnM0yPtGv9kjpMh78NuNSfQWy7vR1rulHpurL36
+          role: operator
+      eslagESIPrefix: '00:f2:00:00:'
+      eslagMACBase: f2:00:00:00:00:00
+      excludeNOSInstallers: true
+      fabricSubnet: 172.30.128.0/17
+      includeCumulus: true
+      leafASNEnd: 65533
+      leafASNStart: 65101
+      managementDHCPEnd: 192.168.200.254
+      managementDHCPStart: 192.168.200.200
+      mclagSessionSubnet: 172.30.95.0/31
+      mode: spine-leaf
+      observability:
+        agent:
+          logs: true
+          metrics: true
+          metricsInterval: 60
+        unix:
+          metrics: true
+          metricsCollectors:
+          - cpu
+          - loadavg
+          - meminfo
+          - filesystem
+          metricsInterval: 60
+          syslog: true
+      protocolSubnet: 172.30.8.0/22
+      proxyExternalSubnet: 172.30.16.0/22
+      spineASN: 65100
+      th5WorkaroundVLANs:
+      - from: 3900
+        to: 3999
+      vpcIRBVLANs:
+      - from: 3000
+        to: 3899
+      vpcWorkaroundSubnet: 172.30.96.0/19
+      vpcWorkaroundVLANs:
+      - from: 100
+        to: 3999
+      vtepSubnet: 172.30.12.0/22
+    gateway:
+      asn: 65534
+      communities:
+        "0": "50001:0"
+        "1": "50001:1"
+        "2": "50001:2"
+        "3": "50001:3"
+        "4": "50001:4"
+        "5": "50001:5"
+        "6": "50001:6"
+        "7": "50001:7"
+        "8": "50001:8"
+        "9": "50001:9"
+      observability:
+        dataplane:
+          metrics: true
+          metricsInterval: 60
+        frr:
+          metrics: true
+          metricsInterval: 60
+        unix:
+          metrics: true
+          metricsCollectors:
+          - cpu
+          - loadavg
+          - meminfo
+          - filesystem
+          metricsInterval: 60
+    observability:
+      targets: {}
+    registry:
+      mode: upstream
+      upstream:
+        prefix: githedgehog
+        repo: ghcr.io
+  overrides:
+    versions:
+      fabric: {}
+      fabricator: {}
+      gateway: {}
+      platform: {}
+      vlab: {}
+---
+apiVersion: fabricator.githedgehog.com/v1beta1
+kind: ControlNode
+metadata:
+  name: control-1
+  namespace: fab
+spec:
+  bootstrap:
+    disk: /dev/sda
+  dummy:
+    ip: 172.30.90.0/31
+  external:
+    interface: eth0
+    ip: dhcp
+  management:
+    interface: eth1
+    ip: 192.168.200.5/24
