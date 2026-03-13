@@ -31,6 +31,15 @@
       ready
     - You can check switch status using `kubectl get ag` command and wait for APPLIEDG to become equal to CURRENTG
       column for all switches.
+0. Naming/IPs
+    - spines: `spine-s[spine]`
+      - e.g. `spine-s00`
+    - leafs: `leaf-su[SU]-r[rail]`
+      - e.g. `leaf-su00-r0`
+    - `server-su[SU]-n[serverInSU]`:
+      - e.g. `server-su00-n00`
+    - rail IPs `10.[VPC].[rail].[server]/31`
+      - e.g. `10.1.5.0/31` - vpc-01/rail-5 server-su00-n00/eth6
 
 ## Summary for control node
 
@@ -65,4 +74,48 @@ leaf-su01-r2   server-leaf           20m       19         19         v0-air-2
 leaf-su01-r3   server-leaf           25m       19         19         v0-air-2   
 spine-s00      spine                 10m       9          9          v0-air-2   
 spine-s01      spine                 9m4s      9          9          v0-air-2 
+```
+
+## Example: connectivity between servers in different SUs
+
+```bash
+ubuntu@control-1:~/nvidia-air-demo$ ssh server-su00-n00 "ip a | grep /31"
+    inet 10.0.0.0/31 scope global eth1
+    inet 10.0.1.0/31 scope global eth2
+    inet 10.0.2.0/31 scope global eth3
+    inet 10.0.3.0/31 scope global eth4
+    inet 10.0.4.0/31 scope global eth5
+    inet 10.0.5.0/31 scope global eth6
+    inet 10.0.6.0/31 scope global eth7
+    inet 10.0.7.0/31 scope global eth8
+ubuntu@control-1:~/nvidia-air-demo$ ssh server-su01-n00 "ip a | grep /31"
+    inet 10.0.0.4/31 scope global eth1
+    inet 10.0.1.4/31 scope global eth2
+    inet 10.0.2.4/31 scope global eth3
+    inet 10.0.3.4/31 scope global eth4
+    inet 10.0.4.4/31 scope global eth5
+    inet 10.0.5.4/31 scope global eth6
+    inet 10.0.6.4/31 scope global eth7
+    inet 10.0.7.4/31 scope global eth8
+
+ubuntu@control-1:~/nvidia-air-demo$ ssh server-su00-n00 "ping -c 2 10.0.2.4"
+PING 10.0.2.4 (10.0.2.4) 56(84) bytes of data.
+64 bytes from 10.0.2.4: icmp_seq=1 ttl=62 time=2.10 ms
+64 bytes from 10.0.2.4: icmp_seq=2 ttl=62 time=1.37 ms
+
+--- 10.0.2.4 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.371/1.736/2.102/0.365 ms
+```
+
+## Example: inspecting switch configuration
+
+```bash
+ubuntu@control-1:~/nvidia-air-demo$ ssh admin@leaf-su00-r0 "nv show qos roce"
+Welcome to NVIDIA Cumulus (R) Linux (R)
+                    operational  applied 
+------------------  -----------  --------
+state               enabled      enabled 
+mode                lossless     lossless
+...
 ```
