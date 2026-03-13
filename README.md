@@ -6,7 +6,7 @@
 
 ## Guide
 
-0. Using NVIDIA Air 2.0 (air-ngc.nvidia.com) create a new simulation from `topology.yaml` file from this repository,
+0. Using NVIDIA Air 2.0 (air-ngc.nvidia.com) create a new simulation from `topology.json` file from this repository,
    keeping ZTP **disabled**
     - Keep OOB enabled and just start simulation
 0. After it's active, enable SSH in Services tab
