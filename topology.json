@@ -1411,13 +1411,13 @@
       [
         
         {
-          "interface": "swp4",
+          "interface": "swp3",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:88"
         }
         ,
         {
-          "interface": "swp4",
+          "interface": "swp3",
           "node": "leaf-su00-r0",
           "mac": "0c:20:12:fe:01:89"
         }
@@ -1427,13 +1427,13 @@
       [
         
         {
-          "interface": "swp1",
+          "interface": "swp4",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:8a"
         }
         ,
         {
-          "interface": "swp1",
+          "interface": "swp4",
           "node": "leaf-su00-r0",
           "mac": "0c:20:12:fe:01:8b"
         }
@@ -1443,13 +1443,13 @@
       [
         
         {
-          "interface": "swp2",
+          "interface": "swp1",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:8c"
         }
         ,
         {
-          "interface": "swp2",
+          "interface": "swp1",
           "node": "leaf-su00-r0",
           "mac": "0c:20:12:fe:01:8d"
         }
@@ -1459,13 +1459,13 @@
       [
         
         {
-          "interface": "swp3",
+          "interface": "swp2",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:8e"
         }
         ,
         {
-          "interface": "swp3",
+          "interface": "swp2",
           "node": "leaf-su00-r0",
           "mac": "0c:20:12:fe:01:8f"
         }
@@ -1539,13 +1539,13 @@
       [
         
         {
-          "interface": "swp10",
+          "interface": "swp11",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:98"
         }
         ,
         {
-          "interface": "swp2",
+          "interface": "swp3",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:99"
         }
@@ -1555,13 +1555,13 @@
       [
         
         {
-          "interface": "swp11",
+          "interface": "swp12",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:9a"
         }
         ,
         {
-          "interface": "swp3",
+          "interface": "swp4",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:9b"
         }
@@ -1571,13 +1571,13 @@
       [
         
         {
-          "interface": "swp12",
+          "interface": "swp9",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:9c"
         }
         ,
         {
-          "interface": "swp4",
+          "interface": "swp1",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:9d"
         }
@@ -1587,13 +1587,13 @@
       [
         
         {
-          "interface": "swp9",
+          "interface": "swp10",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:9e"
         }
         ,
         {
-          "interface": "swp1",
+          "interface": "swp2",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:9f"
         }
@@ -1667,13 +1667,13 @@
       [
         
         {
-          "interface": "swp18",
+          "interface": "swp17",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:a8"
         }
         ,
         {
-          "interface": "swp2",
+          "interface": "swp1",
           "node": "leaf-su01-r0",
           "mac": "0c:20:12:fe:01:a9"
         }
@@ -1683,13 +1683,13 @@
       [
         
         {
-          "interface": "swp19",
+          "interface": "swp18",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:aa"
         }
         ,
         {
-          "interface": "swp3",
+          "interface": "swp2",
           "node": "leaf-su01-r0",
           "mac": "0c:20:12:fe:01:ab"
         }
@@ -1699,13 +1699,13 @@
       [
         
         {
-          "interface": "swp20",
+          "interface": "swp19",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:ac"
         }
         ,
         {
-          "interface": "swp4",
+          "interface": "swp3",
           "node": "leaf-su01-r0",
           "mac": "0c:20:12:fe:01:ad"
         }
@@ -1715,13 +1715,13 @@
       [
         
         {
-          "interface": "swp17",
+          "interface": "swp20",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:ae"
         }
         ,
         {
-          "interface": "swp1",
+          "interface": "swp4",
           "node": "leaf-su01-r0",
           "mac": "0c:20:12:fe:01:af"
         }
@@ -1731,13 +1731,13 @@
       [
         
         {
-          "interface": "swp21",
+          "interface": "swp24",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:b0"
         }
         ,
         {
-          "interface": "swp1",
+          "interface": "swp4",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:b1"
         }
@@ -1747,13 +1747,13 @@
       [
         
         {
-          "interface": "swp22",
+          "interface": "swp21",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:b2"
         }
         ,
         {
-          "interface": "swp2",
+          "interface": "swp1",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:b3"
         }
@@ -1763,13 +1763,13 @@
       [
         
         {
-          "interface": "swp23",
+          "interface": "swp22",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:b4"
         }
         ,
         {
-          "interface": "swp3",
+          "interface": "swp2",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:b5"
         }
@@ -1779,13 +1779,13 @@
       [
         
         {
-          "interface": "swp24",
+          "interface": "swp23",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:b6"
         }
         ,
         {
-          "interface": "swp4",
+          "interface": "swp3",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:b7"
         }
@@ -1859,13 +1859,13 @@
       [
         
         {
-          "interface": "swp30",
+          "interface": "swp29",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:c0"
         }
         ,
         {
-          "interface": "swp2",
+          "interface": "swp1",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:01:c1"
         }
@@ -1875,13 +1875,13 @@
       [
         
         {
-          "interface": "swp31",
+          "interface": "swp30",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:c2"
         }
         ,
         {
-          "interface": "swp3",
+          "interface": "swp2",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:01:c3"
         }
@@ -1891,13 +1891,13 @@
       [
         
         {
-          "interface": "swp32",
+          "interface": "swp31",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:c4"
         }
         ,
         {
-          "interface": "swp4",
+          "interface": "swp3",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:01:c5"
         }
@@ -1907,13 +1907,13 @@
       [
         
         {
-          "interface": "swp29",
+          "interface": "swp32",
           "node": "spine-s00",
           "mac": "0c:20:12:fe:01:c6"
         }
         ,
         {
-          "interface": "swp1",
+          "interface": "swp4",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:01:c7"
         }
@@ -1987,13 +1987,13 @@
       [
         
         {
-          "interface": "swp5",
+          "interface": "swp7",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:d0"
         }
         ,
         {
-          "interface": "swp5",
+          "interface": "swp7",
           "node": "leaf-su00-r1",
           "mac": "0c:20:12:fe:01:d1"
         }
@@ -2003,13 +2003,13 @@
       [
         
         {
-          "interface": "swp6",
+          "interface": "swp8",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:d2"
         }
         ,
         {
-          "interface": "swp6",
+          "interface": "swp8",
           "node": "leaf-su00-r1",
           "mac": "0c:20:12:fe:01:d3"
         }
@@ -2019,13 +2019,13 @@
       [
         
         {
-          "interface": "swp7",
+          "interface": "swp5",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:d4"
         }
         ,
         {
-          "interface": "swp7",
+          "interface": "swp5",
           "node": "leaf-su00-r1",
           "mac": "0c:20:12:fe:01:d5"
         }
@@ -2035,13 +2035,13 @@
       [
         
         {
-          "interface": "swp8",
+          "interface": "swp6",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:d6"
         }
         ,
         {
-          "interface": "swp8",
+          "interface": "swp6",
           "node": "leaf-su00-r1",
           "mac": "0c:20:12:fe:01:d7"
         }
@@ -2051,13 +2051,13 @@
       [
         
         {
-          "interface": "swp11",
+          "interface": "swp9",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:d8"
         }
         ,
         {
-          "interface": "swp7",
+          "interface": "swp5",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:d9"
         }
@@ -2067,13 +2067,13 @@
       [
         
         {
-          "interface": "swp12",
+          "interface": "swp10",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:da"
         }
         ,
         {
-          "interface": "swp8",
+          "interface": "swp6",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:db"
         }
@@ -2083,13 +2083,13 @@
       [
         
         {
-          "interface": "swp9",
+          "interface": "swp11",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:dc"
         }
         ,
         {
-          "interface": "swp5",
+          "interface": "swp7",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:dd"
         }
@@ -2099,13 +2099,13 @@
       [
         
         {
-          "interface": "swp10",
+          "interface": "swp12",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:de"
         }
         ,
         {
-          "interface": "swp6",
+          "interface": "swp8",
           "node": "leaf-su00-r2",
           "mac": "0c:20:12:fe:01:df"
         }
@@ -2115,13 +2115,13 @@
       [
         
         {
-          "interface": "swp13",
+          "interface": "swp15",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:e0"
         }
         ,
         {
-          "interface": "swp5",
+          "interface": "swp7",
           "node": "leaf-su00-r3",
           "mac": "0c:20:12:fe:01:e1"
         }
@@ -2131,13 +2131,13 @@
       [
         
         {
-          "interface": "swp14",
+          "interface": "swp16",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:e2"
         }
         ,
         {
-          "interface": "swp6",
+          "interface": "swp8",
           "node": "leaf-su00-r3",
           "mac": "0c:20:12:fe:01:e3"
         }
@@ -2147,13 +2147,13 @@
       [
         
         {
-          "interface": "swp15",
+          "interface": "swp13",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:e4"
         }
         ,
         {
-          "interface": "swp7",
+          "interface": "swp5",
           "node": "leaf-su00-r3",
           "mac": "0c:20:12:fe:01:e5"
         }
@@ -2163,13 +2163,13 @@
       [
         
         {
-          "interface": "swp16",
+          "interface": "swp14",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:e6"
         }
         ,
         {
-          "interface": "swp8",
+          "interface": "swp6",
           "node": "leaf-su00-r3",
           "mac": "0c:20:12:fe:01:e7"
         }
@@ -2243,13 +2243,13 @@
       [
         
         {
-          "interface": "swp22",
+          "interface": "swp21",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:f0"
         }
         ,
         {
-          "interface": "swp6",
+          "interface": "swp5",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:f1"
         }
@@ -2259,13 +2259,13 @@
       [
         
         {
-          "interface": "swp23",
+          "interface": "swp22",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:f2"
         }
         ,
         {
-          "interface": "swp7",
+          "interface": "swp6",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:f3"
         }
@@ -2275,13 +2275,13 @@
       [
         
         {
-          "interface": "swp24",
+          "interface": "swp23",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:f4"
         }
         ,
         {
-          "interface": "swp8",
+          "interface": "swp7",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:f5"
         }
@@ -2291,13 +2291,13 @@
       [
         
         {
-          "interface": "swp21",
+          "interface": "swp24",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:f6"
         }
         ,
         {
-          "interface": "swp5",
+          "interface": "swp8",
           "node": "leaf-su01-r1",
           "mac": "0c:20:12:fe:01:f7"
         }
@@ -2307,13 +2307,13 @@
       [
         
         {
-          "interface": "swp25",
+          "interface": "swp26",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:f8"
         }
         ,
         {
-          "interface": "swp5",
+          "interface": "swp6",
           "node": "leaf-su01-r2",
           "mac": "0c:20:12:fe:01:f9"
         }
@@ -2323,13 +2323,13 @@
       [
         
         {
-          "interface": "swp26",
+          "interface": "swp27",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:fa"
         }
         ,
         {
-          "interface": "swp6",
+          "interface": "swp7",
           "node": "leaf-su01-r2",
           "mac": "0c:20:12:fe:01:fb"
         }
@@ -2339,13 +2339,13 @@
       [
         
         {
-          "interface": "swp27",
+          "interface": "swp28",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:fc"
         }
         ,
         {
-          "interface": "swp7",
+          "interface": "swp8",
           "node": "leaf-su01-r2",
           "mac": "0c:20:12:fe:01:fd"
         }
@@ -2355,13 +2355,13 @@
       [
         
         {
-          "interface": "swp28",
+          "interface": "swp25",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:01:fe"
         }
         ,
         {
-          "interface": "swp8",
+          "interface": "swp5",
           "node": "leaf-su01-r2",
           "mac": "0c:20:12:fe:01:ff"
         }
@@ -2371,13 +2371,13 @@
       [
         
         {
-          "interface": "swp30",
+          "interface": "swp32",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:02:00"
         }
         ,
         {
-          "interface": "swp6",
+          "interface": "swp8",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:02:01"
         }
@@ -2387,13 +2387,13 @@
       [
         
         {
-          "interface": "swp31",
+          "interface": "swp29",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:02:02"
         }
         ,
         {
-          "interface": "swp7",
+          "interface": "swp5",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:02:03"
         }
@@ -2403,13 +2403,13 @@
       [
         
         {
-          "interface": "swp32",
+          "interface": "swp30",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:02:04"
         }
         ,
         {
-          "interface": "swp8",
+          "interface": "swp6",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:02:05"
         }
@@ -2419,13 +2419,13 @@
       [
         
         {
-          "interface": "swp29",
+          "interface": "swp31",
           "node": "spine-s01",
           "mac": "0c:20:12:fe:02:06"
         }
         ,
         {
-          "interface": "swp5",
+          "interface": "swp7",
           "node": "leaf-su01-r3",
           "mac": "0c:20:12:fe:02:07"
         }

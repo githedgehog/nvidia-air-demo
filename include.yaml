@@ -29,6 +29,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.0.0.0/24,vpc-0=10.4.0.0/24,vpc-1=10.8.0.0/24,vpc-1=10.12.0.0/24
   name: leaf-su00-r0
   namespace: default
 spec:
@@ -48,6 +50,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.1.0.0/24,vpc-0=10.5.0.0/24,vpc-1=10.9.0.0/24,vpc-1=10.13.0.0/24
   name: leaf-su00-r1
   namespace: default
 spec:
@@ -67,6 +71,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.2.0.0/24,vpc-0=10.6.0.0/24,vpc-1=10.10.0.0/24,vpc-1=10.14.0.0/24
   name: leaf-su00-r2
   namespace: default
 spec:
@@ -86,6 +92,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.3.0.0/24,vpc-0=10.7.0.0/24,vpc-1=10.11.0.0/24,vpc-1=10.15.0.0/24
   name: leaf-su00-r3
   namespace: default
 spec:
@@ -105,6 +113,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.0.1.0/24,vpc-0=10.4.1.0/24,vpc-1=10.8.1.0/24,vpc-1=10.12.1.0/24
   name: leaf-su01-r0
   namespace: default
 spec:
@@ -124,6 +134,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.1.1.0/24,vpc-0=10.5.1.0/24,vpc-1=10.9.1.0/24,vpc-1=10.13.1.0/24
   name: leaf-su01-r1
   namespace: default
 spec:
@@ -143,6 +155,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.2.1.0/24,vpc-0=10.6.1.0/24,vpc-1=10.10.1.0/24,vpc-1=10.14.1.0/24
   name: leaf-su01-r2
   namespace: default
 spec:
@@ -162,6 +176,8 @@ spec:
 apiVersion: wiring.githedgehog.com/v1beta1
 kind: Switch
 metadata:
+  annotations:
+    fabric.githedgehog.com/route-summ: vpc-0=10.3.1.0/24,vpc-0=10.7.1.0/24,vpc-1=10.11.1.0/24,vpc-1=10.15.1.0/24
   name: leaf-su01-r3
   namespace: default
 spec:
@@ -1648,7 +1664,7 @@ spec:
   subnets:
     default:
       dhcp: {}
-      subnet: 10.0.0.0/16
+      subnet: 10.0.0.0/13
       vlan: 1000
   vlanNamespace: default
 ---
@@ -1661,7 +1677,7 @@ spec:
   subnets:
     default:
       dhcp: {}
-      subnet: 10.1.0.0/16
+      subnet: 10.8.0.0/13
       vlan: 1001
   vlanNamespace: default
 #
@@ -1683,7 +1699,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.1.0/31
+    fabric.githedgehog.com/p2p-link: 10.1.0.0/31
   name: vpc-0-server-su00-n00-r1-leaf-su00-r1
   namespace: default
 spec:
@@ -1694,7 +1710,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.2.0/31
+    fabric.githedgehog.com/p2p-link: 10.2.0.0/31
   name: vpc-0-server-su00-n00-r2-leaf-su00-r2
   namespace: default
 spec:
@@ -1705,7 +1721,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.3.0/31
+    fabric.githedgehog.com/p2p-link: 10.3.0.0/31
   name: vpc-0-server-su00-n00-r3-leaf-su00-r3
   namespace: default
 spec:
@@ -1716,7 +1732,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.4.0/31
+    fabric.githedgehog.com/p2p-link: 10.4.0.0/31
   name: vpc-0-server-su00-n00-r4-leaf-su00-r0
   namespace: default
 spec:
@@ -1727,7 +1743,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.5.0/31
+    fabric.githedgehog.com/p2p-link: 10.5.0.0/31
   name: vpc-0-server-su00-n00-r5-leaf-su00-r1
   namespace: default
 spec:
@@ -1738,7 +1754,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.6.0/31
+    fabric.githedgehog.com/p2p-link: 10.6.0.0/31
   name: vpc-0-server-su00-n00-r6-leaf-su00-r2
   namespace: default
 spec:
@@ -1749,7 +1765,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.7.0/31
+    fabric.githedgehog.com/p2p-link: 10.7.0.0/31
   name: vpc-0-server-su00-n00-r7-leaf-su00-r3
   namespace: default
 spec:
@@ -1771,7 +1787,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.1.2/31
+    fabric.githedgehog.com/p2p-link: 10.1.0.2/31
   name: vpc-0-server-su00-n01-r1-leaf-su00-r1
   namespace: default
 spec:
@@ -1782,7 +1798,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.2.2/31
+    fabric.githedgehog.com/p2p-link: 10.2.0.2/31
   name: vpc-0-server-su00-n01-r2-leaf-su00-r2
   namespace: default
 spec:
@@ -1793,7 +1809,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.3.2/31
+    fabric.githedgehog.com/p2p-link: 10.3.0.2/31
   name: vpc-0-server-su00-n01-r3-leaf-su00-r3
   namespace: default
 spec:
@@ -1804,7 +1820,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.4.2/31
+    fabric.githedgehog.com/p2p-link: 10.4.0.2/31
   name: vpc-0-server-su00-n01-r4-leaf-su00-r0
   namespace: default
 spec:
@@ -1815,7 +1831,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.5.2/31
+    fabric.githedgehog.com/p2p-link: 10.5.0.2/31
   name: vpc-0-server-su00-n01-r5-leaf-su00-r1
   namespace: default
 spec:
@@ -1826,7 +1842,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.6.2/31
+    fabric.githedgehog.com/p2p-link: 10.6.0.2/31
   name: vpc-0-server-su00-n01-r6-leaf-su00-r2
   namespace: default
 spec:
@@ -1837,7 +1853,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.7.2/31
+    fabric.githedgehog.com/p2p-link: 10.7.0.2/31
   name: vpc-0-server-su00-n01-r7-leaf-su00-r3
   namespace: default
 spec:
@@ -1848,7 +1864,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.0.4/31
+    fabric.githedgehog.com/p2p-link: 10.0.1.0/31
   name: vpc-0-server-su01-n00-r0-leaf-su01-r0
   namespace: default
 spec:
@@ -1859,7 +1875,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.1.4/31
+    fabric.githedgehog.com/p2p-link: 10.1.1.0/31
   name: vpc-0-server-su01-n00-r1-leaf-su01-r1
   namespace: default
 spec:
@@ -1870,7 +1886,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.2.4/31
+    fabric.githedgehog.com/p2p-link: 10.2.1.0/31
   name: vpc-0-server-su01-n00-r2-leaf-su01-r2
   namespace: default
 spec:
@@ -1881,7 +1897,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.3.4/31
+    fabric.githedgehog.com/p2p-link: 10.3.1.0/31
   name: vpc-0-server-su01-n00-r3-leaf-su01-r3
   namespace: default
 spec:
@@ -1892,7 +1908,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.4.4/31
+    fabric.githedgehog.com/p2p-link: 10.4.1.0/31
   name: vpc-0-server-su01-n00-r4-leaf-su01-r0
   namespace: default
 spec:
@@ -1903,7 +1919,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.5.4/31
+    fabric.githedgehog.com/p2p-link: 10.5.1.0/31
   name: vpc-0-server-su01-n00-r5-leaf-su01-r1
   namespace: default
 spec:
@@ -1914,7 +1930,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.6.4/31
+    fabric.githedgehog.com/p2p-link: 10.6.1.0/31
   name: vpc-0-server-su01-n00-r6-leaf-su01-r2
   namespace: default
 spec:
@@ -1925,7 +1941,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.7.4/31
+    fabric.githedgehog.com/p2p-link: 10.7.1.0/31
   name: vpc-0-server-su01-n00-r7-leaf-su01-r3
   namespace: default
 spec:
@@ -1936,7 +1952,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.0.6/31
+    fabric.githedgehog.com/p2p-link: 10.0.1.2/31
   name: vpc-0-server-su01-n01-r0-leaf-su01-r0
   namespace: default
 spec:
@@ -1947,7 +1963,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.1.6/31
+    fabric.githedgehog.com/p2p-link: 10.1.1.2/31
   name: vpc-0-server-su01-n01-r1-leaf-su01-r1
   namespace: default
 spec:
@@ -1958,7 +1974,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.2.6/31
+    fabric.githedgehog.com/p2p-link: 10.2.1.2/31
   name: vpc-0-server-su01-n01-r2-leaf-su01-r2
   namespace: default
 spec:
@@ -1969,7 +1985,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.3.6/31
+    fabric.githedgehog.com/p2p-link: 10.3.1.2/31
   name: vpc-0-server-su01-n01-r3-leaf-su01-r3
   namespace: default
 spec:
@@ -1980,7 +1996,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.4.6/31
+    fabric.githedgehog.com/p2p-link: 10.4.1.2/31
   name: vpc-0-server-su01-n01-r4-leaf-su01-r0
   namespace: default
 spec:
@@ -1991,7 +2007,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.5.6/31
+    fabric.githedgehog.com/p2p-link: 10.5.1.2/31
   name: vpc-0-server-su01-n01-r5-leaf-su01-r1
   namespace: default
 spec:
@@ -2002,7 +2018,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.6.6/31
+    fabric.githedgehog.com/p2p-link: 10.6.1.2/31
   name: vpc-0-server-su01-n01-r6-leaf-su01-r2
   namespace: default
 spec:
@@ -2013,7 +2029,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.0.7.6/31
+    fabric.githedgehog.com/p2p-link: 10.7.1.2/31
   name: vpc-0-server-su01-n01-r7-leaf-su01-r3
   namespace: default
 spec:
@@ -2024,7 +2040,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.0.0/31
+    fabric.githedgehog.com/p2p-link: 10.8.0.0/31
   name: vpc-1-server-su00-n02-r0-leaf-su00-r0
   namespace: default
 spec:
@@ -2035,7 +2051,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.1.0/31
+    fabric.githedgehog.com/p2p-link: 10.9.0.0/31
   name: vpc-1-server-su00-n02-r1-leaf-su00-r1
   namespace: default
 spec:
@@ -2046,7 +2062,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.2.0/31
+    fabric.githedgehog.com/p2p-link: 10.10.0.0/31
   name: vpc-1-server-su00-n02-r2-leaf-su00-r2
   namespace: default
 spec:
@@ -2057,7 +2073,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.3.0/31
+    fabric.githedgehog.com/p2p-link: 10.11.0.0/31
   name: vpc-1-server-su00-n02-r3-leaf-su00-r3
   namespace: default
 spec:
@@ -2068,7 +2084,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.4.0/31
+    fabric.githedgehog.com/p2p-link: 10.12.0.0/31
   name: vpc-1-server-su00-n02-r4-leaf-su00-r0
   namespace: default
 spec:
@@ -2079,7 +2095,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.5.0/31
+    fabric.githedgehog.com/p2p-link: 10.13.0.0/31
   name: vpc-1-server-su00-n02-r5-leaf-su00-r1
   namespace: default
 spec:
@@ -2090,7 +2106,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.6.0/31
+    fabric.githedgehog.com/p2p-link: 10.14.0.0/31
   name: vpc-1-server-su00-n02-r6-leaf-su00-r2
   namespace: default
 spec:
@@ -2101,7 +2117,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.7.0/31
+    fabric.githedgehog.com/p2p-link: 10.15.0.0/31
   name: vpc-1-server-su00-n02-r7-leaf-su00-r3
   namespace: default
 spec:
@@ -2112,7 +2128,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.0.2/31
+    fabric.githedgehog.com/p2p-link: 10.8.0.2/31
   name: vpc-1-server-su00-n03-r0-leaf-su00-r0
   namespace: default
 spec:
@@ -2123,7 +2139,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.1.2/31
+    fabric.githedgehog.com/p2p-link: 10.9.0.2/31
   name: vpc-1-server-su00-n03-r1-leaf-su00-r1
   namespace: default
 spec:
@@ -2134,7 +2150,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.2.2/31
+    fabric.githedgehog.com/p2p-link: 10.10.0.2/31
   name: vpc-1-server-su00-n03-r2-leaf-su00-r2
   namespace: default
 spec:
@@ -2145,7 +2161,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.3.2/31
+    fabric.githedgehog.com/p2p-link: 10.11.0.2/31
   name: vpc-1-server-su00-n03-r3-leaf-su00-r3
   namespace: default
 spec:
@@ -2156,7 +2172,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.4.2/31
+    fabric.githedgehog.com/p2p-link: 10.12.0.2/31
   name: vpc-1-server-su00-n03-r4-leaf-su00-r0
   namespace: default
 spec:
@@ -2167,7 +2183,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.5.2/31
+    fabric.githedgehog.com/p2p-link: 10.13.0.2/31
   name: vpc-1-server-su00-n03-r5-leaf-su00-r1
   namespace: default
 spec:
@@ -2178,7 +2194,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.6.2/31
+    fabric.githedgehog.com/p2p-link: 10.14.0.2/31
   name: vpc-1-server-su00-n03-r6-leaf-su00-r2
   namespace: default
 spec:
@@ -2189,7 +2205,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.7.2/31
+    fabric.githedgehog.com/p2p-link: 10.15.0.2/31
   name: vpc-1-server-su00-n03-r7-leaf-su00-r3
   namespace: default
 spec:
@@ -2200,7 +2216,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.0.4/31
+    fabric.githedgehog.com/p2p-link: 10.8.1.0/31
   name: vpc-1-server-su01-n02-r0-leaf-su01-r0
   namespace: default
 spec:
@@ -2211,7 +2227,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.1.4/31
+    fabric.githedgehog.com/p2p-link: 10.9.1.0/31
   name: vpc-1-server-su01-n02-r1-leaf-su01-r1
   namespace: default
 spec:
@@ -2222,7 +2238,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.2.4/31
+    fabric.githedgehog.com/p2p-link: 10.10.1.0/31
   name: vpc-1-server-su01-n02-r2-leaf-su01-r2
   namespace: default
 spec:
@@ -2233,7 +2249,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.3.4/31
+    fabric.githedgehog.com/p2p-link: 10.11.1.0/31
   name: vpc-1-server-su01-n02-r3-leaf-su01-r3
   namespace: default
 spec:
@@ -2244,7 +2260,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.4.4/31
+    fabric.githedgehog.com/p2p-link: 10.12.1.0/31
   name: vpc-1-server-su01-n02-r4-leaf-su01-r0
   namespace: default
 spec:
@@ -2255,7 +2271,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.5.4/31
+    fabric.githedgehog.com/p2p-link: 10.13.1.0/31
   name: vpc-1-server-su01-n02-r5-leaf-su01-r1
   namespace: default
 spec:
@@ -2266,7 +2282,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.6.4/31
+    fabric.githedgehog.com/p2p-link: 10.14.1.0/31
   name: vpc-1-server-su01-n02-r6-leaf-su01-r2
   namespace: default
 spec:
@@ -2277,7 +2293,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.7.4/31
+    fabric.githedgehog.com/p2p-link: 10.15.1.0/31
   name: vpc-1-server-su01-n02-r7-leaf-su01-r3
   namespace: default
 spec:
@@ -2288,7 +2304,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.0.6/31
+    fabric.githedgehog.com/p2p-link: 10.8.1.2/31
   name: vpc-1-server-su01-n03-r0-leaf-su01-r0
   namespace: default
 spec:
@@ -2299,7 +2315,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.1.6/31
+    fabric.githedgehog.com/p2p-link: 10.9.1.2/31
   name: vpc-1-server-su01-n03-r1-leaf-su01-r1
   namespace: default
 spec:
@@ -2310,7 +2326,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.2.6/31
+    fabric.githedgehog.com/p2p-link: 10.10.1.2/31
   name: vpc-1-server-su01-n03-r2-leaf-su01-r2
   namespace: default
 spec:
@@ -2321,7 +2337,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.3.6/31
+    fabric.githedgehog.com/p2p-link: 10.11.1.2/31
   name: vpc-1-server-su01-n03-r3-leaf-su01-r3
   namespace: default
 spec:
@@ -2332,7 +2348,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.4.6/31
+    fabric.githedgehog.com/p2p-link: 10.12.1.2/31
   name: vpc-1-server-su01-n03-r4-leaf-su01-r0
   namespace: default
 spec:
@@ -2343,7 +2359,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.5.6/31
+    fabric.githedgehog.com/p2p-link: 10.13.1.2/31
   name: vpc-1-server-su01-n03-r5-leaf-su01-r1
   namespace: default
 spec:
@@ -2354,7 +2370,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.6.6/31
+    fabric.githedgehog.com/p2p-link: 10.14.1.2/31
   name: vpc-1-server-su01-n03-r6-leaf-su01-r2
   namespace: default
 spec:
@@ -2365,7 +2381,7 @@ apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
   annotations:
-    fabric.githedgehog.com/p2p-link: 10.1.7.6/31
+    fabric.githedgehog.com/p2p-link: 10.15.1.2/31
   name: vpc-1-server-su01-n03-r7-leaf-su01-r3
   namespace: default
 spec:
