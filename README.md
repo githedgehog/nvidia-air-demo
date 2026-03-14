@@ -100,14 +100,14 @@ ubuntu@control-1:~$ ssh server-su01-n00 "ip a | grep /31"
     inet 10.5.1.0/31 scope global eth6
     inet 10.6.1.0/31 scope global eth7
     inet 10.7.1.0/31 scope global eth8
-ubuntu@control-1:~$ ssh server-su00-n00 "ping -c 2 10.5.0.0"
-PING 10.5.0.0 (10.5.0.0) 56(84) bytes of data.
-64 bytes from 10.5.0.0: icmp_seq=1 ttl=64 time=0.060 ms
-64 bytes from 10.5.0.0: icmp_seq=2 ttl=64 time=0.047 ms
+ubuntu@control-1:~/nvidia-air-demo$ ssh server-su00-n00 "ping -c 2 10.5.1.0"
+PING 10.5.1.0 (10.5.1.0) 56(84) bytes of data.
+64 bytes from 10.5.1.0: icmp_seq=1 ttl=62 time=2.50 ms
+64 bytes from 10.5.1.0: icmp_seq=2 ttl=62 time=1.70 ms
 
---- 10.5.0.0 ping statistics ---
-2 packets transmitted, 2 received, 0% packet loss, time 1016ms
-rtt min/avg/max/mdev = 0.047/0.053/0.060/0.006 ms
+--- 10.5.1.0 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 1.697/2.097/2.497/0.400 ms
 ```
 
 ## Example: inspecting switch configuration
