@@ -67,16 +67,16 @@ cd nvidia-air-demo
 ```bash
 ubuntu@control-1:~/nvidia-air-demo$ kubectl get ag
 NAME           ROLE          DESCR   APPLIED   APPLIEDG   CURRENTG   VERSION    REBOOTREQ
-leaf-su00-r0   server-leaf           14m       12         12         v0-air-2   
-leaf-su00-r1   server-leaf           8m9s      12         12         v0-air-2   
-leaf-su00-r2   server-leaf           16m       13         13         v0-air-2   
-leaf-su00-r3   server-leaf           23m       13         13         v0-air-2   
-leaf-su01-r0   server-leaf           17m       19         19         v0-air-2   
-leaf-su01-r1   server-leaf           12m       19         19         v0-air-2   
-leaf-su01-r2   server-leaf           20m       19         19         v0-air-2   
-leaf-su01-r3   server-leaf           25m       19         19         v0-air-2   
-spine-s00      spine                 10m       9          9          v0-air-2   
-spine-s01      spine                 9m4s      9          9          v0-air-2 
+leaf-su00-r0   server-leaf           14m       12         12         v0-air-4   
+leaf-su00-r1   server-leaf           8m9s      12         12         v0-air-4   
+leaf-su00-r2   server-leaf           16m       13         13         v0-air-4   
+leaf-su00-r3   server-leaf           23m       13         13         v0-air-4   
+leaf-su01-r0   server-leaf           17m       19         19         v0-air-4   
+leaf-su01-r1   server-leaf           12m       19         19         v0-air-4   
+leaf-su01-r2   server-leaf           20m       19         19         v0-air-4   
+leaf-su01-r3   server-leaf           25m       19         19         v0-air-4   
+spine-s00      spine                 10m       9          9          v0-air-4   
+spine-s01      spine                 9m4s      9          9          v0-air-4 
 ```
 
 ## Example: connectivity between servers in different SUs
@@ -108,6 +108,71 @@ PING 10.5.1.0 (10.5.1.0) 56(84) bytes of data.
 --- 10.5.1.0 ping statistics ---
 2 packets transmitted, 2 received, 0% packet loss, time 1002ms
 rtt min/avg/max/mdev = 1.697/2.097/2.497/0.400 ms
+```
+
+## Example: Tenants (VPCs) are Isolated
+
+server-su00-n00 is in `vpc-0` and server-su00-n02 is in `vpc-1`. Both servers
+are in the same SU but different tenants so they are isolated.
+
+```bash
+ubuntu@server-su00-n00:~$ ip -oneline a
+1: lo    inet 127.0.0.1/8 scope host lo\       valid_lft forever preferred_lft forever
+1: lo    inet6 ::1/128 scope host noprefixroute \       valid_lft forever preferred_lft forever
+2: eth0    inet 192.168.200.100/24 metric 100 brd 192.168.200.255 scope global dynamic eth0\       valid_lft 572sec preferred_lft 572sec
+2: eth0    inet6 fe80::e20:12ff:fefe:100/64 scope link \       valid_lft forever preferred_lft forever
+3: eth1    inet 10.0.0.0/31 scope global eth1\       valid_lft forever preferred_lft forever
+4: eth2    inet 10.1.0.0/31 scope global eth2\       valid_lft forever preferred_lft forever
+5: eth3    inet 10.2.0.0/31 scope global eth3\       valid_lft forever preferred_lft forever
+6: eth4    inet 10.3.0.0/31 scope global eth4\       valid_lft forever preferred_lft forever
+7: eth5    inet 10.4.0.0/31 scope global eth5\       valid_lft forever preferred_lft forever
+8: eth6    inet 10.5.0.0/31 scope global eth6\       valid_lft forever preferred_lft forever
+9: eth7    inet 10.6.0.0/31 scope global eth7\       valid_lft forever preferred_lft forever
+10: eth8    inet 10.7.0.0/31 scope global eth8\       valid_lft forever preferred_lft forever
+
+```
+
+```bash
+ubuntu@server-su00-n02:~$ ip -o a
+1: lo    inet 127.0.0.1/8 scope host lo\       valid_lft forever preferred_lft forever
+1: lo    inet6 ::1/128 scope host noprefixroute \       valid_lft forever preferred_lft forever
+2: eth0    inet 192.168.200.102/24 metric 100 brd 192.168.200.255 scope global dynamic eth0\       valid_lft 1291sec preferred_lft 1291sec
+2: eth0    inet6 fe80::e20:12ff:fefe:102/64 scope link \       valid_lft forever preferred_lft forever
+3: eth1    inet 10.8.0.0/31 scope global eth1\       valid_lft forever preferred_lft forever
+4: eth2    inet 10.9.0.0/31 scope global eth2\       valid_lft forever preferred_lft forever
+5: eth3    inet 10.10.0.0/31 scope global eth3\       valid_lft forever preferred_lft forever
+6: eth4    inet 10.11.0.0/31 scope global eth4\       valid_lft forever preferred_lft forever
+7: eth5    inet 10.12.0.0/31 scope global eth5\       valid_lft forever preferred_lft forever
+8: eth6    inet 10.13.0.0/31 scope global eth6\       valid_lft forever preferred_lft forever
+9: eth7    inet 10.14.0.0/31 scope global eth7\       valid_lft forever preferred_lft forever
+10: eth8    inet 10.15.0.0/31 scope global eth8\       valid_lft forever preferred_lft forever
+```
+
+### Attempt a ping
+
+
+```bash
+ubuntu@server-su00-n00:~$ ping -c 5 10.8.0.0
+PING 10.8.0.0 (10.8.0.0) 56(84) bytes of data.
+From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
+From 10.0.0.1 icmp_seq=2 Destination Host Unreachable
+From 10.0.0.1 icmp_seq=3 Destination Host Unreachable
+From 10.0.0.1 icmp_seq=4 Destination Host Unreachable
+
+--- 10.8.0.0 ping statistics ---
+5 packets transmitted, 0 received, +4 errors, 100% packet loss, time 4134ms
+```
+
+```bash
+ubuntu@server-su00-n02:~$ ping -c 5 10.0.0.0
+PING 10.0.0.0 (10.0.0.0) 56(84) bytes of data.
+From 10.8.0.1 icmp_seq=1 Destination Host Unreachable
+From 10.8.0.1 icmp_seq=2 Destination Host Unreachable
+From 10.8.0.1 icmp_seq=3 Destination Host Unreachable
+From 10.8.0.1 icmp_seq=4 Destination Host Unreachable
+
+--- 10.0.0.0 ping statistics ---
+5 packets transmitted, 0 received, +4 errors, 100% packet loss, time 4089ms
 ```
 
 ## Example: inspecting switch configuration
