@@ -262,3 +262,315 @@ swp14        up            up           1G     9216   swp       server-su01-n02 
 swp15        up            up           1G     9216   swp       server-su01-n03         0c:20:12:fe:01:7f  IPv4 Address:                 10.11.1.3/31
 swp16        up            up           1G     9216   swp       server-su01-n03         0c:20:12:fe:01:87  IPv4 Address:                 10.15.1.3/31
 ```
+
+## Move a Server from vpc-0 to vpc-1
+
+Every logical connection from a server is represented as a `connection` object.
+For a server to be a attached to a VPC the `connection` objects for the server
+need to be attached to the VPC in a `vpcattachment`. To see the `connection`
+objects associated with a server:
+
+```bash
+ubuntu@control-1:~/nvidia-air-demo$ kubectl get connections | grep su00-n00
+server-su00-n00-r0-leaf-su00-r0   unbundled   52m
+server-su00-n00-r1-leaf-su00-r1   unbundled   52m
+server-su00-n00-r2-leaf-su00-r2   unbundled   52m
+server-su00-n00-r3-leaf-su00-r3   unbundled   52m
+server-su00-n00-r4-leaf-su00-r0   unbundled   52m
+server-su00-n00-r5-leaf-su00-r1   unbundled   52m
+server-su00-n00-r6-leaf-su00-r2   unbundled   52m
+server-su00-n00-r7-leaf-su00-r3   unbundled   52m
+```
+
+The connections are currently attached to vpc-0 in the default subnet,
+`vpc-0/default`:
+
+```bash
+ubuntu@control-1:~/nvidia-air-demo$ kubectl get vpcattachments | grep su00-n00
+vpc-0-server-su00-n00-r0-leaf-su00-r0   vpc-0/default   server-su00-n00-r0-leaf-su00-r0                57m
+vpc-0-server-su00-n00-r1-leaf-su00-r1   vpc-0/default   server-su00-n00-r1-leaf-su00-r1                57m
+vpc-0-server-su00-n00-r2-leaf-su00-r2   vpc-0/default   server-su00-n00-r2-leaf-su00-r2                57m
+vpc-0-server-su00-n00-r3-leaf-su00-r3   vpc-0/default   server-su00-n00-r3-leaf-su00-r3                57m
+vpc-0-server-su00-n00-r4-leaf-su00-r0   vpc-0/default   server-su00-n00-r4-leaf-su00-r0                57m
+vpc-0-server-su00-n00-r5-leaf-su00-r1   vpc-0/default   server-su00-n00-r5-leaf-su00-r1                57m
+vpc-0-server-su00-n00-r6-leaf-su00-r2   vpc-0/default   server-su00-n00-r6-leaf-su00-r2                57m
+vpc-0-server-su00-n00-r7-leaf-su00-r3   vpc-0/default   server-su00-n00-r7-leaf-su00-r3                57m
+```
+To move server `su00-n00` from `vpc-0` to `vpc-1`:
+
+1. Delete existing `vpcattachments`. Copy and paste this yaml file to the
+control node, then `kubectl delete -f old_attachments.yaml`:
+
+```yaml
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.0.0.0/31
+  name: vpc-0-server-su00-n00-r0-leaf-su00-r0
+  namespace: default
+spec:
+  connection: server-su00-n00-r0-leaf-su00-r0
+  subnet: vpc-0/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.1.0.0/31
+  name: vpc-0-server-su00-n00-r1-leaf-su00-r1
+  namespace: default
+spec:
+  connection: server-su00-n00-r1-leaf-su00-r1
+  subnet: vpc-0/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.2.0.0/31
+  name: vpc-0-server-su00-n00-r2-leaf-su00-r2
+  namespace: default
+spec:
+  connection: server-su00-n00-r2-leaf-su00-r2
+  subnet: vpc-0/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.3.0.0/31
+  name: vpc-0-server-su00-n00-r3-leaf-su00-r3
+  namespace: default
+spec:
+  connection: server-su00-n00-r3-leaf-su00-r3
+  subnet: vpc-0/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.4.0.0/31
+  name: vpc-0-server-su00-n00-r4-leaf-su00-r0
+  namespace: default
+spec:
+  connection: server-su00-n00-r4-leaf-su00-r0
+  subnet: vpc-0/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.5.0.0/31
+  name: vpc-0-server-su00-n00-r5-leaf-su00-r1
+  namespace: default
+spec:
+  connection: server-su00-n00-r5-leaf-su00-r1
+  subnet: vpc-0/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.6.0.0/31
+  name: vpc-0-server-su00-n00-r6-leaf-su00-r2
+  namespace: default
+spec:
+  connection: server-su00-n00-r6-leaf-su00-r2
+  subnet: vpc-0/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.7.0.0/31
+  name: vpc-0-server-su00-n00-r7-leaf-su00-r3
+  namespace: default
+spec:
+  connection: server-su00-n00-r7-leaf-su00-r3
+  subnet: vpc-0/default
+```
+
+2. After the `vpcattachments` have been deleted. The connections need to be attached
+to their new vpc, `vpc-1`. As above, copy this yaml to the control node, then
+`kubectl create -f new_attachments.yaml`
+
+```yaml
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.8.0.4/31
+  name: vpc-1-server-su00-n00-r0-leaf-su00-r0
+  namespace: default
+spec:
+  connection: server-su00-n00-r0-leaf-su00-r0
+  subnet: vpc-1/default
+---
+
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.9.0.4/31
+  name: vpc-1-server-su00-n00-r1-leaf-su00-r1
+  namespace: default
+spec:
+  connection: server-su00-n00-r1-leaf-su00-r1
+  subnet: vpc-1/default
+---
+
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.10.0.4/31
+  name: vpc-1-server-su00-n00-r2-leaf-su00-r2
+  namespace: default
+spec:
+  connection: server-su00-n00-r2-leaf-su00-r2
+  subnet: vpc-1/default
+---
+
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.11.0.4/31
+  name: vpc-1-server-su00-n00-r3-leaf-su00-r3
+  namespace: default
+spec:
+  connection: server-su00-n00-r3-leaf-su00-r3
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.12.0.4/31
+  name: vpc-1-server-su00-n00-r4-leaf-su00-r0
+  namespace: default
+spec:
+  connection: server-su00-n00-r4-leaf-su00-r0
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.13.0.4/31
+  name: vpc-1-server-su00-n00-r5-leaf-su00-r1
+  namespace: default
+spec:
+  connection: server-su00-n00-r5-leaf-su00-r1
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.14.0.4/31
+  name: vpc-1-server-su00-n00-r6-leaf-su00-r2
+  namespace: default
+spec:
+  connection: server-su00-n00-r6-leaf-su00-r2
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.15.0.4/31
+  name: vpc-1-server-su00-n00-r7-leaf-su00-r3
+  namespace: default
+spec:
+  connection: server-su00-n00-r7-leaf-su00-r3
+  subnet: vpc-1/default
+
+```
+
+3. Finally configure the servers to have the correct IP addresses, by
+   copying,pasting, and running this script on the control node.
+
+
+```bash
+echo -e "\nMoving server server-su00-n00 from vpc-0 to vpc-1, staying in same rail"
+
+SSHPASS='nvidia' sshpass -e ssh-copy-id -o StrictHostKeyChecking=accept-new -i ~/.ssh/id_rsa.pub ubuntu@server-su00-n00
+
+cat <<'EOF' | ssh ubuntu@server-su00-n00 bash
+hostname
+
+
+# Clear out vpc-0 config
+echo "Flushing Old Config"
+
+sudo ip r f 10.0.0.0/8
+sudo ip r f 10.0.0.0/24 nexthop via 10.0.0.1
+sudo ip r f 10.1.0.0/24 nexthop via 10.1.0.1
+sudo ip r f 10.2.0.0/24 nexthop via 10.2.0.1
+sudo ip r f 10.3.0.0/24 nexthop via 10.3.0.1
+sudo ip r f 10.4.0.0/24 nexthop via 10.4.0.1
+sudo ip r f 10.5.0.0/24 nexthop via 10.5.0.1
+sudo ip r f 10.6.0.0/24 nexthop via 10.6.0.1
+sudo ip r f 10.7.0.0/24 nexthop via 10.7.0.1
+
+# Set vpc-1 config
+
+echo "Setting New Config"
+
+sudo ip link set dev eth1 up
+sudo ip a flush dev eth1
+sudo ip a a 10.8.0.4/31 dev eth1 # leaf 1
+
+sudo ip link set dev eth2 up
+sudo ip a flush dev eth2
+sudo ip a a 10.9.0.4/31 dev eth2 # leaf 2
+
+sudo ip link set dev eth3 up
+sudo ip a flush dev eth3
+sudo ip a a 10.10.0.4/31 dev eth3 #leaf 3
+
+sudo ip link set dev eth4 up
+sudo ip a flush dev eth4
+sudo ip a a 10.11.0.4/31 dev eth4 # leaf 4
+
+sudo ip link set dev eth5 up
+sudo ip a flush dev eth5
+sudo ip a a 10.12.0.4/31 dev eth5 # leaf 1
+
+sudo ip link set dev eth6 up
+sudo ip a flush dev eth6
+sudo ip a a 10.13.0.4/31 dev eth6 # leaf 2
+
+sudo ip link set dev eth7 up
+sudo ip a flush dev eth7
+sudo ip a a 10.14.0.4/31 dev eth7 # leaf 3
+
+sudo ip link set dev eth8 up
+sudo ip a flush dev eth8
+sudo ip a a 10.15.0.4/31 dev eth8 # leaf 4
+
+
+sudo ip r a 10.8.0.0/24 nexthop via 10.8.0.5
+
+sudo ip r a 10.0.0.0/8 nexthop via 10.8.0.5 nexthop via 10.9.0.5 nexthop via 10.10.0.5 nexthop via 10.11.0.5 nexthop via 10.12.0.5 nexthop via 10.13.0.5 nexthop via 10.14.0.5 nexthop via 10.15.0.5
+
+sudo ip r a 10.9.0.0/24 nexthop via 10.9.0.5
+
+sudo ip r a 10.10.0.0/24 nexthop via 10.10.0.5
+
+sudo ip r a 10.11.0.0/24 nexthop via 10.11.0.5
+
+sudo ip r a 10.12.0.0/24 nexthop via 10.12.0.5
+
+sudo ip r a 10.13.0.0/24 nexthop via 10.13.0.5
+
+sudo ip r a 10.14.0.0/24 nexthop via 10.14.0.5
+
+sudo ip r a 10.15.0.0/24 nexthop via 10.15.0.5
+
+EOF
+```
+
