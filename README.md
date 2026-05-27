@@ -665,9 +665,9 @@ This simulation uses 45 CPUs, 67 GB, and 354 GB of storage.
 
 # References 
 
-To learn more about Hedgehog Fabric visit [hedgehog.cloud/learn](hedgehog.cloud/learn)
+To learn more about Hedgehog Fabric visit [hedgehog.cloud/learn](https://hedgehog.cloud/learn)
 
-[Hedgehog Fabric Homepage](hedgehog.cloud)
+[Hedgehog Fabric Homepage](https://hedgehog.cloud)
 
 [Github Repo](https://github.com/githedgehog/nvidia-air-demo)
 
