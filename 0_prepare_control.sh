@@ -6,9 +6,9 @@ set -euo pipefail
 sudo growpart /dev/vda 1
 sudo resize2fs /dev/vda1
 
-sudo systemctl stop isc-dhcp-server.service
-sudo systemctl stop isc-dhcp-server6.service
-sudo systemctl stop apache2.service
+sudo systemctl disable --now isc-dhcp-server.service
+sudo systemctl disable --now isc-dhcp-server6.service
+sudo systemctl disable --now apache2.service
 sudo hostnamectl set-hostname control-1
 
 echo "export PATH=$PATH:/opt/bin" | tee -a ~/.bashrc >/dev/null
