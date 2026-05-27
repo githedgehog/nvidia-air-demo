@@ -1,4 +1,4 @@
-# NVIDIA Air Demo
+# NVIDIA DSX Air Demo
 
 ## Overview
 
@@ -6,7 +6,7 @@
 
 ## Guide
 
-0. Using NVIDIA Air 2.0 (air-ngc.nvidia.com) create a new simulation from `topology.json` file from this repository,
+0. Using NVIDIA DSX Air (air-ngc.nvidia.com) create a new simulation from `topology.json` file from this repository,
    keeping ZTP **disabled**
     - Keep OOB enabled and just start simulation
 0. After it's active, enable SSH in Services tab
@@ -491,7 +491,7 @@ spec:
 ```
 
 3. Finally configure the servers to have the correct IP addresses, by
-   copying,pasting, and running this script on the control node.
+   copying, pasting, and running this script on the control node.
 
 
 ```bash
@@ -572,5 +572,103 @@ sudo ip r a 10.14.0.0/24 nexthop via 10.14.0.5
 sudo ip r a 10.15.0.0/24 nexthop via 10.15.0.5
 
 EOF
+
 ```
 
+4. If you want to restore the server to vpc-0:
+  * `kubectl delete -f new_attachment.yaml`
+  * `kubectl create -f old_atatchment.yaml`
+
+Use the restore script:
+
+```
+
+#!/bin/bash
+
+hostname
+
+
+# Clear out vpc-1 config
+echo "Flushing VPC-1 Config"
+
+sudo ip r f 10.0.0.0/8
+sudo ip r f 10.8.0.0/24 nexthop via 10.8.0.5
+sudo ip r f 10.9.0.0/24 nexthop via 10.9.0.5
+sudo ip r f 10.10.0.0/24 nexthop via 10.10.0.5
+sudo ip r f 10.11.0.0/24 nexthop via 10.11.0.5
+sudo ip r f 10.12.0.0/24 nexthop via 10.12.0.5
+sudo ip r f 10.13.0.0/24 nexthop via 10.13.0.5
+sudo ip r f 10.14.0.0/24 nexthop via 10.14.0.5
+sudo ip r f 10.15.0.0/24 nexthop via 10.15.0.5
+
+# Set vpc-0 config
+
+echo "Setting VPC-0 Config"
+
+sudo ip link set dev eth1 up
+sudo ip a flush dev eth1
+sudo ip a a 10.0.0.0/31 dev eth1 # leaf 1
+
+sudo ip link set dev eth2 up
+sudo ip a flush dev eth2
+sudo ip a a 10.1.0.0/31 dev eth2 # leaf 2
+
+sudo ip link set dev eth3 up
+sudo ip a flush dev eth3
+sudo ip a a 10.2.0.0/31 dev eth3 #leaf 3
+
+sudo ip link set dev eth4 up
+sudo ip a flush dev eth4
+sudo ip a a 10.3.0.0/31 dev eth4 # leaf 4
+
+sudo ip link set dev eth5 up
+sudo ip a flush dev eth5
+sudo ip a a 10.4.0.0/31 dev eth5 # leaf 1
+
+sudo ip link set dev eth6 up
+sudo ip a flush dev eth6
+sudo ip a a 10.5.0.0/31 dev eth6 # leaf 2
+
+sudo ip link set dev eth7 up
+sudo ip a flush dev eth7
+sudo ip a a 10.6.0.0/31 dev eth7 # leaf 3
+
+sudo ip link set dev eth8 up
+sudo ip a flush dev eth8
+sudo ip a a 10.7.0.0/31 dev eth8 # leaf 4
+
+
+sudo ip r a 10.0.0.0/24 nexthop via 10.0.0.1
+
+sudo ip r a 10.0.0.0/8 nexthop via 10.0.0.1 nexthop via 10.1.0.1 nexthop via 10.2.0.1 nexthop via 10.3.0.1 nexthop via 10.4.0.1 nexthop via 10.5.0.1 nexthop via 10.6.0.1 nexthop via 10.7.0.1
+
+sudo ip r a 10.1.0.0/24 nexthop via 10.1.0.1
+
+sudo ip r a 10.2.0.0/24 nexthop via 10.2.0.1
+
+sudo ip r a 10.3.0.0/24 nexthop via 10.3.0.1
+
+sudo ip r a 10.4.0.0/24 nexthop via 10.4.0.1
+
+sudo ip r a 10.5.0.0/24 nexthop via 10.5.0.1
+
+sudo ip r a 10.6.0.0/24 nexthop via 10.6.0.1
+
+sudo ip r a 10.7.0.0/24 nexthop via 10.7.0.1
+
+```
+
+
+# Resources
+
+This simulation uses 45 CPUs, 67 GB, and 354 GB of storage.
+
+# References 
+
+To learn more about Hedgehog Fabric visit [hedgehog.cloud/learn](hedgehog.cloud/learn)
+
+[Hedgehog Fabric Homepage](hedgehog.cloud)
+
+[Github Repo](https://github.com/githedgehog/nvidia-air-demo)
+
+Email: sales@hedgehog.cloud

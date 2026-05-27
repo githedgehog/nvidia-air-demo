@@ -1,13 +1,17 @@
 {
   "format": "JSON",
+  "ztp": null,
   "content": {
-    "nodes": {
-      
+    "nodes": {  
       "leaf-su00-r0": {
         "nic_model": "virtio",
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 275,
+            "y": 275
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -29,6 +33,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+             "x": 550,
+             "y": 275
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -50,6 +58,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+         "positioning": {
+             "x": 825,
+             "y": 275
+         },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -71,6 +83,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 1100,
+            "y": 275
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -92,6 +108,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 1650,
+            "y": 275
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -113,6 +133,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 1925,
+            "y": 275
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -134,6 +158,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 2200,
+            "y": 275
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -155,6 +183,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 2475,
+            "y": 275
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -176,6 +208,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 1100,
+            "y": 0
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -197,6 +233,10 @@
         "cpu": 2,
         "memory": 4096,
         "storage": 10,
+        "positioning": {
+            "x": 1650,
+            "y": 0
+        },
         "os": "cumulus-vx-5.15.0",
         "features": {
           "uefi": false,
@@ -218,6 +258,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+        "positioning": {
+            "x": 275,
+            "y": 550
+        },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -239,6 +283,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+         "positioning": {
+             "x": 550,
+             "y": 550
+         },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -260,6 +308,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+        "positioning": {
+            "x": 825,
+            "y": 550
+        },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -281,6 +333,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+        "positioning": {
+            "x": 1100,
+            "y": 550
+        },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -302,6 +358,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+        "positioning": {
+            "x": 1650,
+            "y": 550
+        },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -323,6 +383,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+        "positioning": {
+            "x": 1925,
+            "y": 550
+        },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -344,6 +408,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+        "positioning": {
+            "x": 2200,
+            "y": 550
+        },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -365,6 +433,10 @@
         "cpu": 1,
         "memory": 1024,
         "storage": 10,
+        "positioning": {
+            "x": 2475,
+            "y": 550
+        },
         "os": "generic/ubuntu2404",
         "features": {
           "uefi": false,
@@ -2454,10 +2526,16 @@
           "cpu": 4,
           "memory": 6144,
           "storage": 64,
+          "positioning":{
+              "x": 1650,
+              "y": -275
+           },
           "os": "netq-ts-cloud-4.15.0",
+          "management_mac": "48:B0:2D:00:03:00",
           "nic_model": "virtio"
         }
       }
     }
-  }
+  },
+  "name": "Hedgehog Fabric"
 }
