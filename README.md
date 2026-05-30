@@ -4,7 +4,7 @@
 
 ![Env Diagram](./assets/env-diagram.png)
 
-## Guide
+## Setup Guide
 
 0. Using NVIDIA DSX Air (air-ngc.nvidia.com) create a new simulation from `topology.json` file from this repository,
    keeping ZTP **disabled**
@@ -17,20 +17,21 @@
     - use `ubuntu` username for servers (password: `nvidia`)
     - e.g. ssh `admin@leaf-su00-r0` or `ubuntu@server-su00-n00`
 0. Install Hedgehog Fabric
-    - SSH to control node (.e.g. `ssh -p 22176 ubuntu@dc5d2f73.workers.ngc.air.nvidia.com`), default password: `nvidia`
-    - Clone this repository
-    - Prepare node for installing Hedgehog Fabric by running `./0_prepare_control.sh`
-    - Relogin to the node (to get PATH and hostname updated)
-    - Install Hedgehog Fabric by running `./1_install_control.sh`, it installs K8s and bunch of a software including
-      downloading about 1GB of artifacts and so it can take up to 10-20 minutes to complete
+    - SSH to control node (e.g. `ssh -p 22176 ubuntu@dc5d2f73.workers.ngc.air.nvidia.com`), default password: `nvidia`
+    - Clone this repository, `git clone https://github.com/githedgehog/nvidia-air-demo.git`
+    - `cd nvidia-air-demo`
+    - Prepare node for installing Hedgehog Fabric by running `./0_prepare_control.sh`, the script will prompt you to log out after it finishes
+    - Log back into the node (to get PATH and hostname updated)
+    - Install Hedgehog Fabric by running `./1_install_control.sh`, it installs K8s and the Fabric including
+      downloading about 1GB of artifacts and so it can take up to 10-25 minutes to complete
     - You should see `INF Control node installation complete` when it's done
     - If it failed you need to run `/opt/bin/k3s-uninstall.sh` and re-run `./1_install_control.sh`
     - Run `./2_setup_servers.sh` to configure rail IPs on all servers
 0. Wait for switches to get provisioned
-    - Switches will discover control node and do ZTP through DHCP, so it may take another 10-15 minutes before they are
+    - Switches will discover control node and do ZTP through DHCP, so it may take another 10-45 minutes before they are
       ready
     - You can check switch status using `kubectl get ag` command and wait for APPLIEDG to become equal to CURRENTG
-      column for all switches.
+      column for all switches
 0. Naming/IPs
     - spines: `spine-s[spine]`
       - e.g. `spine-s00`
@@ -44,42 +45,59 @@
       - where `VPC&rail` is from previous step - e.g. `5` is for vpc-00/rail-5 and `8` is for vpc-01/rail-0
       - e.g. `10.1.5.0/31` - vpc-01/rail-5 server-su00-n00/eth6
 
-## Summary for control node
 
-Run on the node:
+## Topology
 
-```bash
-git clone https://github.com/githedgehog/nvidia-air-demo
-cd nvidia-air-demo
-./0_prepare_control.sh
-```
+Each server has 8 network connections into the fabric, simulating a
+rail-optimized topology.
 
-Relogin and run:
+| Server          | Scalable Unit (SU) | Tenant / VPC |
+| --------------- | :----------------: | :----------: |
+| server-su00-n00 |          0         |      0       |
+| server-su00-n01 |          0         |      0       |
+| server-su00-n02 |          0         |      1       |
+| server-su00-n03 |          0         |      1       |
+| server-su01-n00 |          1         |      0       |
+| server-su01-n01 |          1         |      0       |
+| server-su01-n02 |          1         |      1       |
+| server-su01-n03 |          1         |      1       |
 
-```bash
-cd nvidia-air-demo
-./1_install_control.sh
-./2_setup_servers.sh
-```
+The tenants in this example are spread across the scalable units.
 
-## Example: ready switches
+## Resuming the Simulation
+
+If you are restarting a previously running simulation, run the `resume.sh` script to reset the IP addresses.
+
+# Hedgehog Fabric
+
+Hedgehog Fabric automates multi-tenant EVPN/VXLAN fabrics at scale using symmetric BGP routing and Kubernetes CRD-based management. It integrates naturally with existing K8s automation workflows and has no GUI — all configuration is handled through CRDs.
+
+## Example: Ready Switches
+
+The switches send heartbeats back to the controller to ensure a live control connection. Changing the switch configuration creates a new generation, when CURRENTG is the same as APPLIEDG there are no pending configurations on the switch.
+
+`kubectl get ag`
 
 ```bash
 ubuntu@control-1:~/nvidia-air-demo$ kubectl get ag
 NAME           ROLE          DESCR   APPLIED   APPLIEDG   CURRENTG   VERSION    REBOOTREQ
-leaf-su00-r0   server-leaf           14m       12         12         v0-air-4   
-leaf-su00-r1   server-leaf           8m9s      12         12         v0-air-4   
-leaf-su00-r2   server-leaf           16m       13         13         v0-air-4   
-leaf-su00-r3   server-leaf           23m       13         13         v0-air-4   
-leaf-su01-r0   server-leaf           17m       19         19         v0-air-4   
-leaf-su01-r1   server-leaf           12m       19         19         v0-air-4   
-leaf-su01-r2   server-leaf           20m       19         19         v0-air-4   
-leaf-su01-r3   server-leaf           25m       19         19         v0-air-4   
-spine-s00      spine                 10m       9          9          v0-air-4   
-spine-s01      spine                 9m4s      9          9          v0-air-4 
+leaf-su00-r0   server-leaf           14m       12         12         v0-120.3
+leaf-su00-r1   server-leaf           8m9s      12         12         v0-120.3
+leaf-su00-r2   server-leaf           16m       13         13         v0-120.3
+leaf-su00-r3   server-leaf           23m       13         13         v0-120.3
+leaf-su01-r0   server-leaf           17m       19         19         v0-120.3
+leaf-su01-r1   server-leaf           12m       19         19         v0-120.3
+leaf-su01-r2   server-leaf           20m       19         19         v0-120.3
+leaf-su01-r3   server-leaf           25m       19         19         v0-120.3
+spine-s00      spine                 10m       9          9          v0-120.3
+spine-s01      spine                 9m4s      9          9          v0-120.3
 ```
 
-## Example: connectivity between servers in different SUs
+## Example: Connectivity Between Servers in Different SUs
+
+These two servers are in different Scalable Units and are still able to communicate:
+
+`ssh server-su00-n00 "ip a | grep /31"`
 
 ```bash
 ubuntu@control-1:~$ ssh server-su00-n00 "ip a | grep /31"
@@ -91,6 +109,11 @@ ubuntu@control-1:~$ ssh server-su00-n00 "ip a | grep /31"
     inet 10.5.0.0/31 scope global eth6
     inet 10.6.0.0/31 scope global eth7
     inet 10.7.0.0/31 scope global eth8
+```
+
+`ssh server-su01-n00 "ip a | grep /31"`
+
+```bash
 ubuntu@control-1:~$ ssh server-su01-n00 "ip a | grep /31"
     inet 10.0.1.0/31 scope global eth1
     inet 10.1.1.0/31 scope global eth2
@@ -100,6 +123,11 @@ ubuntu@control-1:~$ ssh server-su01-n00 "ip a | grep /31"
     inet 10.5.1.0/31 scope global eth6
     inet 10.6.1.0/31 scope global eth7
     inet 10.7.1.0/31 scope global eth8
+```
+
+Ping to demonstrate reachability: `ssh server-su00-n00 "ping -c 2 10.5.1.0"`
+
+```bash
 ubuntu@control-1:~/nvidia-air-demo$ ssh server-su00-n00 "ping -c 2 10.5.1.0"
 PING 10.5.1.0 (10.5.1.0) 56(84) bytes of data.
 64 bytes from 10.5.1.0: icmp_seq=1 ttl=62 time=2.50 ms
@@ -114,6 +142,8 @@ rtt min/avg/max/mdev = 1.697/2.097/2.497/0.400 ms
 
 server-su00-n00 is in `vpc-0` and server-su00-n02 is in `vpc-1`. Both servers
 are in the same SU but different tenants so they are isolated.
+
+`ssh server-su00-n00`
 
 ```bash
 ubuntu@server-su00-n00:~$ ip -oneline a
@@ -131,6 +161,7 @@ ubuntu@server-su00-n00:~$ ip -oneline a
 10: eth8    inet 10.7.0.0/31 scope global eth8\       valid_lft forever preferred_lft forever
 
 ```
+`ssh server-su00-n02`
 
 ```bash
 ubuntu@server-su00-n02:~$ ip -o a
@@ -150,6 +181,7 @@ ubuntu@server-su00-n02:~$ ip -o a
 
 ### Attempt a ping
 
+The tenants are isolated from each other, they cannot ping each other.
 
 ```bash
 ubuntu@server-su00-n00:~$ ping -c 5 10.8.0.0
@@ -180,17 +212,19 @@ From 10.8.0.1 icmp_seq=4 Destination Host Unreachable
 ```bash
 ubuntu@control-1:~/nvidia-air-demo$ ssh admin@leaf-su00-r0 "nv show qos roce"
 Welcome to NVIDIA Cumulus (R) Linux (R)
-                    operational  applied 
+                    operational  applied
 ------------------  -----------  --------
-state               enabled      enabled 
+state               enabled      enabled
 mode                lossless     lossless
 ...
 ```
 
 ## Example: route summarization
 
+`ssh admin@leaf-su01-r3`
+
 ```bash
-admin@leaf-su01-r3:mgmt:~$ nv show vrf vpc-0 router bgp address-family ipv4-unicast route brief 
+admin@leaf-su01-r3:mgmt:~$ nv show vrf vpc-0 router bgp address-family ipv4-unicast route brief
 
 PathCount - Number of paths present for the prefix, MultipathCount - Number of
 paths that are part of the ECMP, DestFlags - * - bestpath-exists, w - fib-wait-
@@ -198,27 +232,29 @@ for-install, s - fib-suppress, i - fib-installed, x - fib-install-failed
 
 Prefix       PathCount  MultipathCount  DestFlags
 -----------  ---------  --------------  ---------
-10.0.0.0/24  2          1               *        
-10.0.1.0/24  2          1               *        
-10.1.0.0/24  2          1               *        
-10.1.1.0/24  2          1               *        
-10.2.0.0/24  2          1               *        
-10.2.1.0/24  2          1               *        
-10.3.0.0/24  2          1               *        
-10.3.1.0/24  1          1               *        
-10.3.1.0/31  1          1               *        
-10.3.1.2/31  1          1               *        
-10.4.0.0/24  2          1               *        
-10.4.1.0/24  2          1               *        
-10.5.0.0/24  2          1               *        
-10.5.1.0/24  2          1               *        
-10.6.0.0/24  2          1               *        
-10.6.1.0/24  2          1               *        
-10.7.0.0/24  2          1               *        
-10.7.1.0/24  1          1               *        
-10.7.1.0/31  1          1               *        
-10.7.1.2/31  1          1               *        
+10.0.0.0/24  2          1               *
+10.0.1.0/24  2          1               *
+10.1.0.0/24  2          1               *
+10.1.1.0/24  2          1               *
+10.2.0.0/24  2          1               *
+10.2.1.0/24  2          1               *
+10.3.0.0/24  2          1               *
+10.3.1.0/24  1          1               *
+10.3.1.0/31  1          1               *
+10.3.1.2/31  1          1               *
+10.4.0.0/24  2          1               *
+10.4.1.0/24  2          1               *
+10.5.0.0/24  2          1               *
+10.5.1.0/24  2          1               *
+10.6.0.0/24  2          1               *
+10.6.1.0/24  2          1               *
+10.7.0.0/24  2          1               *
+10.7.1.0/24  1          1               *
+10.7.1.0/31  1          1               *
+10.7.1.2/31  1          1               *
+```
 
+```bash
 admin@leaf-su01-r3:mgmt:~$ nv show vrf vpc-0 router rib ipv4 route brief
 
 Flags - * - selected, q - queued, o - offloaded, i - installed, S - fib-
@@ -226,47 +262,49 @@ selected, x - failed
 
 Route        Protocol   Distance  Uptime   NHGId  Metric  Flags
 -----------  ---------  --------  -------  -----  ------  -----
-0.0.0.0/0    kernel     255       0:27:41  42     8192    *Si  
-10.0.0.0/24  bgp        20        0:26:24  122    0       *Si  
-10.0.1.0/24  bgp        20        0:27:30  104    0       *Si  
-10.1.0.0/24  bgp        20        0:27:30  101    0       *Si  
-10.1.1.0/24  bgp        20        0:27:30  105    0       *Si  
-10.2.0.0/24  bgp        20        0:27:30  102    0       *Si  
-10.2.1.0/24  bgp        20        0:27:27  109    0       *Si  
-10.3.0.0/24  bgp        20        0:27:30  103    0       *Si  
-10.3.1.0/24  bgp        200       0:27:36  54     0       *Si  
-10.3.1.0/31  connected  0         0:27:41  33     0       *Si  
-10.3.1.1/32  local      0         0:27:41  33     0       *Si  
-10.3.1.2/31  connected  0         0:27:41  35     0       *Si  
-10.3.1.3/32  local      0         0:27:41  35     0       *Si  
-10.4.0.0/24  bgp        20        0:26:24  122    0       *Si  
-10.4.1.0/24  bgp        20        0:27:30  104    0       *Si  
-10.5.0.0/24  bgp        20        0:27:30  101    0       *Si  
-10.5.1.0/24  bgp        20        0:27:30  105    0       *Si  
-10.6.0.0/24  bgp        20        0:27:30  102    0       *Si  
-10.6.1.0/24  bgp        20        0:27:27  109    0       *Si  
-10.7.0.0/24  bgp        20        0:27:30  103    0       *Si  
-10.7.1.0/24  bgp        200       0:27:36  54     0       *Si  
-10.7.1.0/31  connected  0         0:27:41  34     0       *Si  
-10.7.1.1/32  local      0         0:27:41  34     0       *Si  
-10.7.1.2/31  connected  0         0:27:41  36     0       *Si  
-10.7.1.3/32  local      0         0:27:41  36     0       *Si  
+0.0.0.0/0    kernel     255       0:27:41  42     8192    *Si
+10.0.0.0/24  bgp        20        0:26:24  122    0       *Si
+10.0.1.0/24  bgp        20        0:27:30  104    0       *Si
+10.1.0.0/24  bgp        20        0:27:30  101    0       *Si
+10.1.1.0/24  bgp        20        0:27:30  105    0       *Si
+10.2.0.0/24  bgp        20        0:27:30  102    0       *Si
+10.2.1.0/24  bgp        20        0:27:27  109    0       *Si
+10.3.0.0/24  bgp        20        0:27:30  103    0       *Si
+10.3.1.0/24  bgp        200       0:27:36  54     0       *Si
+10.3.1.0/31  connected  0         0:27:41  33     0       *Si
+10.3.1.1/32  local      0         0:27:41  33     0       *Si
+10.3.1.2/31  connected  0         0:27:41  35     0       *Si
+10.3.1.3/32  local      0         0:27:41  35     0       *Si
+10.4.0.0/24  bgp        20        0:26:24  122    0       *Si
+10.4.1.0/24  bgp        20        0:27:30  104    0       *Si
+10.5.0.0/24  bgp        20        0:27:30  101    0       *Si
+10.5.1.0/24  bgp        20        0:27:30  105    0       *Si
+10.6.0.0/24  bgp        20        0:27:30  102    0       *Si
+10.6.1.0/24  bgp        20        0:27:27  109    0       *Si
+10.7.0.0/24  bgp        20        0:27:30  103    0       *Si
+10.7.1.0/24  bgp        200       0:27:36  54     0       *Si
+10.7.1.0/31  connected  0         0:27:41  34     0       *Si
+10.7.1.1/32  local      0         0:27:41  34     0       *Si
+10.7.1.2/31  connected  0         0:27:41  36     0       *Si
+10.7.1.3/32  local      0         0:27:41  36     0       *Si
 
+```
+```bash
 admin@leaf-su01-r3:mgmt:~$ nv show int | grep 10
-swp9         up            up           1G     9216   swp       server-su01-n00         0c:20:12:fe:01:4f  IPv4 Address:                  10.3.1.1/31
-swp10        up            up           1G     9216   swp       server-su01-n00         0c:20:12:fe:01:57  IPv4 Address:                  10.7.1.1/31
-swp11        up            up           1G     9216   swp       server-su01-n01         0c:20:12:fe:01:5f  IPv4 Address:                  10.3.1.3/31
-swp12        up            up           1G     9216   swp       server-su01-n01         0c:20:12:fe:01:67  IPv4 Address:                  10.7.1.3/31
-swp13        up            up           1G     9216   swp       server-su01-n02         0c:20:12:fe:01:6f  IPv4 Address:                 10.11.1.1/31
-swp14        up            up           1G     9216   swp       server-su01-n02         0c:20:12:fe:01:77  IPv4 Address:                 10.15.1.1/31
-swp15        up            up           1G     9216   swp       server-su01-n03         0c:20:12:fe:01:7f  IPv4 Address:                 10.11.1.3/31
-swp16        up            up           1G     9216   swp       server-su01-n03         0c:20:12:fe:01:87  IPv4 Address:                 10.15.1.3/31
+swp9         up            up           1G     9216   swp       server-su01-n00.simulation  0c:20:12:fe:01:4f  IPv4 Address:                  10.3.1.1/31
+swp10        up            up           1G     9216   swp       server-su01-n00.simulation  0c:20:12:fe:01:57  IPv4 Address:                  10.7.1.1/31
+swp11        up            up           1G     9216   swp       server-su01-n01.simulation  0c:20:12:fe:01:5f  IPv4 Address:                  10.3.1.3/31
+swp12        up            up           1G     9216   swp       server-su01-n01.simulation  0c:20:12:fe:01:67  IPv4 Address:                  10.7.1.3/31
+swp13        up            up           1G     9216   swp       server-su01-n02.simulation  0c:20:12:fe:01:6f  IPv4 Address:                 10.11.1.1/31
+swp14        up            up           1G     9216   swp       server-su01-n02.simulation  0c:20:12:fe:01:77  IPv4 Address:                 10.15.1.1/31
+swp15        up            up           1G     9216   swp       server-su01-n03.simulation  0c:20:12:fe:01:7f  IPv4 Address:                 10.11.1.3/31
+swp16        up            up           1G     9216   swp       server-su01-n03.simulation  0c:20:12:fe:01:87  IPv4 Address:                 10.15.1.3/31
 ```
 
 ## Move a Server from vpc-0 to vpc-1
 
 Every logical connection from a server is represented as a `connection` object.
-For a server to be a attached to a VPC the `connection` objects for the server
+For a server to be attached to a VPC the `connection` objects for the server
 need to be attached to the VPC in a `vpcattachment`. To see the `connection`
 objects associated with a server:
 
@@ -298,10 +336,11 @@ vpc-0-server-su00-n00-r7-leaf-su00-r3   vpc-0/default   server-su00-n00-r7-leaf-
 ```
 To move server `su00-n00` from `vpc-0` to `vpc-1`:
 
-1. Delete existing `vpcattachments`. Copy and paste this yaml file to the
+1. Delete existing `vpcattachments`. Copy and paste this YAML file to the
 control node, then `kubectl delete -f old_attachments.yaml`:
 
 ```yaml
+---
 apiVersion: vpc.githedgehog.com/v1beta1
 kind: VPCAttachment
 metadata:
@@ -391,8 +430,8 @@ spec:
   subnet: vpc-0/default
 ```
 
-2. After the `vpcattachments` have been deleted. The connections need to be attached
-to their new vpc, `vpc-1`. As above, copy this yaml to the control node, then
+2. After the `vpcattachments` have been deleted, the connections need to be attached
+to their new vpc, `vpc-1`. As above, copy this YAML to the control node, then
 `kubectl create -f new_attachments.yaml`
 
 ```yaml
@@ -495,7 +534,6 @@ spec:
 
 
 ```bash
-echo -e "\nMoving server server-su00-n00 from vpc-0 to vpc-1, staying in same rail"
 
 SSHPASS='nvidia' sshpass -e ssh-copy-id -o StrictHostKeyChecking=accept-new -i ~/.ssh/id_rsa.pub ubuntu@server-su00-n00
 
@@ -507,14 +545,14 @@ hostname
 echo "Flushing Old Config"
 
 sudo ip r f 10.0.0.0/8
-sudo ip r f 10.0.0.0/24 nexthop via 10.0.0.1
-sudo ip r f 10.1.0.0/24 nexthop via 10.1.0.1
-sudo ip r f 10.2.0.0/24 nexthop via 10.2.0.1
-sudo ip r f 10.3.0.0/24 nexthop via 10.3.0.1
-sudo ip r f 10.4.0.0/24 nexthop via 10.4.0.1
-sudo ip r f 10.5.0.0/24 nexthop via 10.5.0.1
-sudo ip r f 10.6.0.0/24 nexthop via 10.6.0.1
-sudo ip r f 10.7.0.0/24 nexthop via 10.7.0.1
+sudo ip r f 10.0.0.0/24  via 10.0.0.1
+sudo ip r f 10.1.0.0/24  via 10.1.0.1
+sudo ip r f 10.2.0.0/24  via 10.2.0.1
+sudo ip r f 10.3.0.0/24  via 10.3.0.1
+sudo ip r f 10.4.0.0/24  via 10.4.0.1
+sudo ip r f 10.5.0.0/24  via 10.5.0.1
+sudo ip r f 10.6.0.0/24  via 10.6.0.1
+sudo ip r f 10.7.0.0/24  via 10.7.0.1
 
 # Set vpc-1 config
 
@@ -573,17 +611,23 @@ sudo ip r a 10.15.0.0/24 nexthop via 10.15.0.5
 
 EOF
 
+echo -e "\nMoved server server-su00-n00 from vpc-0 to vpc-1, staying in same rail"
+echo "Confirming with Ping"
+
+ssh server-su00-n00 " ping -c 5 10.8.0.0"
+
 ```
 
 4. If you want to restore the server to vpc-0:
-  * `kubectl delete -f new_attachment.yaml`
-  * `kubectl create -f old_atatchment.yaml`
+  * `kubectl delete -f new_attachments.yaml`
+  * `kubectl create -f old_attachments.yaml`
 
 Use the restore script:
 
-```
+```bash
 
-#!/bin/bash
+cat <<'EOF' | ssh ubuntu@server-su00-n00 bash
+
 
 hostname
 
@@ -592,14 +636,14 @@ hostname
 echo "Flushing VPC-1 Config"
 
 sudo ip r f 10.0.0.0/8
-sudo ip r f 10.8.0.0/24 nexthop via 10.8.0.5
-sudo ip r f 10.9.0.0/24 nexthop via 10.9.0.5
-sudo ip r f 10.10.0.0/24 nexthop via 10.10.0.5
-sudo ip r f 10.11.0.0/24 nexthop via 10.11.0.5
-sudo ip r f 10.12.0.0/24 nexthop via 10.12.0.5
-sudo ip r f 10.13.0.0/24 nexthop via 10.13.0.5
-sudo ip r f 10.14.0.0/24 nexthop via 10.14.0.5
-sudo ip r f 10.15.0.0/24 nexthop via 10.15.0.5
+sudo ip r f 10.8.0.0/24 via 10.8.0.5
+sudo ip r f 10.9.0.0/24 via 10.9.0.5
+sudo ip r f 10.10.0.0/24 via 10.10.0.5
+sudo ip r f 10.11.0.0/24 via 10.11.0.5
+sudo ip r f 10.12.0.0/24 via 10.12.0.5
+sudo ip r f 10.13.0.0/24 via 10.13.0.5
+sudo ip r f 10.14.0.0/24 via 10.14.0.5
+sudo ip r f 10.15.0.0/24 via 10.15.0.5
 
 # Set vpc-0 config
 
@@ -656,6 +700,12 @@ sudo ip r a 10.6.0.0/24 nexthop via 10.6.0.1
 
 sudo ip r a 10.7.0.0/24 nexthop via 10.7.0.1
 
+EOF
+
+echo -e "\nMoved server server-su00-n00 from vpc-1 to vpc-0, staying in same rail"
+echo "Confirming wiht Ping"
+ssh server-su00-n00 "ping -c 5 10.0.1.0"
+
 ```
 
 
@@ -663,12 +713,14 @@ sudo ip r a 10.7.0.0/24 nexthop via 10.7.0.1
 
 This simulation uses 45 CPUs, 67 GB, and 354 GB of storage.
 
-# References 
+# References
 
 To learn more about Hedgehog Fabric visit [hedgehog.cloud/learn](https://hedgehog.cloud/learn)
 
 [Hedgehog Fabric Homepage](https://hedgehog.cloud)
 
 [Github Repo](https://github.com/githedgehog/nvidia-air-demo)
+
+[Hedgehog Docs](https://docs.hedgehog.cloud)
 
 Email: sales@hedgehog.cloud

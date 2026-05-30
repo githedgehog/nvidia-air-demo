@@ -1,0 +1,88 @@
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.8.0.4/31
+  name: vpc-1-server-su00-n00-r0-leaf-su00-r0
+  namespace: default
+spec:
+  connection: server-su00-n00-r0-leaf-su00-r0
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.9.0.4/31
+  name: vpc-1-server-su00-n00-r1-leaf-su00-r1
+  namespace: default
+spec:
+  connection: server-su00-n00-r1-leaf-su00-r1
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.10.0.4/31
+  name: vpc-1-server-su00-n00-r2-leaf-su00-r2
+  namespace: default
+spec:
+  connection: server-su00-n00-r2-leaf-su00-r2
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.11.0.4/31
+  name: vpc-1-server-su00-n00-r3-leaf-su00-r3
+  namespace: default
+spec:
+  connection: server-su00-n00-r3-leaf-su00-r3
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.12.0.4/31
+  name: vpc-1-server-su00-n00-r4-leaf-su00-r0
+  namespace: default
+spec:
+  connection: server-su00-n00-r4-leaf-su00-r0
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.13.0.4/31
+  name: vpc-1-server-su00-n00-r5-leaf-su00-r1
+  namespace: default
+spec:
+  connection: server-su00-n00-r5-leaf-su00-r1
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.14.0.4/31
+  name: vpc-1-server-su00-n00-r6-leaf-su00-r2
+  namespace: default
+spec:
+  connection: server-su00-n00-r6-leaf-su00-r2
+  subnet: vpc-1/default
+---
+apiVersion: vpc.githedgehog.com/v1beta1
+kind: VPCAttachment
+metadata:
+  annotations:
+    fabric.githedgehog.com/p2p-link: 10.15.0.4/31
+  name: vpc-1-server-su00-n00-r7-leaf-su00-r3
+  namespace: default
+spec:
+  connection: server-su00-n00-r7-leaf-su00-r3
+  subnet: vpc-1/default
