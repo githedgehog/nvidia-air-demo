@@ -10,30 +10,30 @@
    keeping ZTP **disabled**
     - Keep OOB enabled and just start simulation
 0. After it's active, enable SSH in Services tab
-    - Provided access info allows to SSH to the Hedgehog Fabric Control Node from which you can ssh to all switches and
+    - The provided access info allows to SSH to the Hedgehog Fabric Control Node from which you can ssh to all switches and
       servers using their hostnames
     - SSH keys are automatically provisioned
     - use `admin` username for switches (password: `HHFab.Admin!`)
     - use `ubuntu` username for servers (password: `nvidia`)
     - e.g. ssh `admin@leaf-su00-r0` or `ubuntu@server-su00-n00`
 0. Install Hedgehog Fabric
-    - Copy the ssh credentials the out of band management node via the clipboard icon next to the
+    - Copy the ssh credentials for the out-of-band management node via the clipboard icon next to the
       `oob-mgmt-server` in the services tab, and paste it into your terminal.
-    - SSH to control node (e.g. `ssh -p 22176
-      ubuntu@dc5d2f73.workers.ngc.air.nvidia.com`), default password: `nvidia`. The port and host name are provided in the services tab.
+    - SSH to control node (e.g. `ssh -p 22176 ubuntu@dc5d2f73.workers.ngc.air.nvidia.com`), default password: `nvidia`. The port and host name are provided in the services tab.
     - Clone this repository, `git clone https://github.com/githedgehog/nvidia-air-demo.git`
     - `cd nvidia-air-demo`
-    - Prepare node for installing Hedgehog Fabric by running `./0_prepare_control.sh`, the script will prompt you to log out after it finishes
+    - Prepare the node for installing the Hedgehog Fabric by running `./0_prepare_control.sh`, the script will prompt you to log out after it finishes
     - Log back into the node (to get PATH and hostname updated)
-    - Install Hedgehog Fabric by running `./1_install_control.sh`, it installs K8s and the Fabric including
-      downloading about 1GB of artifacts and so it can take up to 10-25 minutes to complete
+    - Install Hedgehog Fabric by running `./1_install_control.sh`, it installs
+      K8s and the Fabric, downloading about 1GB of artifacts, and it may take 10-25 minutes to complete
     - You should see `INF Control node installation complete` when it's done
-    - If it failed you need to run `/opt/bin/k3s-uninstall.sh` and re-run `./1_install_control.sh`
+    - If it fails, you need to run `/opt/bin/k3s-uninstall.sh` and re-run `./1_install_control.sh`
     - Run `./2_setup_servers.sh` to configure rail IPs on all servers
 0. Wait for switches to get provisioned
     - Switches will discover control node and do ZTP through DHCP, so it may take another 10-45 minutes before they are
       ready
-    - You can check switch status using `kubectl get ag` command and wait for APPLIEDG to become equal to CURRENTG
+    - You can check switch status using `kubectl get ag` command and wait until
+      the APPLIEDG column equals CURRENTG column for all switches
       column for all switches
 0. Naming/IPs
     - spines: `spine-s[spine]`
