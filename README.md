@@ -17,7 +17,10 @@
     - use `ubuntu` username for servers (password: `nvidia`)
     - e.g. ssh `admin@leaf-su00-r0` or `ubuntu@server-su00-n00`
 0. Install Hedgehog Fabric
-    - SSH to control node (e.g. `ssh -p 22176 ubuntu@dc5d2f73.workers.ngc.air.nvidia.com`), default password: `nvidia`
+    - Copy the ssh credentials the out of band management node via the clipboard icon next to the
+      `oob-mgmt-server` in the services tab, and paste it into your terminal.
+    - SSH to control node (e.g. `ssh -p 22176
+      ubuntu@dc5d2f73.workers.ngc.air.nvidia.com`), default password: `nvidia`. The port and host name are provided in the services tab.
     - Clone this repository, `git clone https://github.com/githedgehog/nvidia-air-demo.git`
     - `cd nvidia-air-demo`
     - Prepare node for installing Hedgehog Fabric by running `./0_prepare_control.sh`, the script will prompt you to log out after it finishes
