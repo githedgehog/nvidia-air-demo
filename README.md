@@ -2,7 +2,7 @@
 
 ## Overview
 
-![Env Diagram](./assets/dsx-air-diagram.png)
+![Env Diagram](https://github.com/githedgehog/nvidia-air-demo/blob/master/assets/dsx-air-diagram.png)
 
 ## Setup Guide
 
@@ -75,7 +75,7 @@ If you are restarting a previously running simulation, run the `resume.sh` scrip
 
 Hedgehog Fabric automates multi-tenant EVPN/VXLAN fabrics at scale using symmetric BGP routing and Kubernetes CRD-based management. It integrates naturally with existing K8s automation workflows and has no GUI — all configuration is handled through CRDs.
 
-![Fabric Diagram](./assets/env-diagram.png)
+![Fabric Diagram](https://github.com/githedgehog/nvidia-air-demo/blob/master/assets/env-diagram.png)
 
 ## Example: Ready Switches
 
