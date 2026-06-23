@@ -6,10 +6,7 @@
 
 ## Setup Guide
 
-0. Using NVIDIA DSX Air (air-ngc.nvidia.com) create a new simulation from `topology.json` file from this repository,
-   keeping ZTP **disabled**
-    - Keep OOB enabled and just start simulation
-0. After it's active, enable SSH in Services tab
+0. After the simulation is active, enable SSH in Services tab
     - The provided access info allows to SSH to the Hedgehog Fabric Control Node from which you can ssh to all switches and
       servers using their hostnames
     - SSH keys are automatically provisioned
